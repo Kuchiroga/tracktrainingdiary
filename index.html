@@ -5,13 +5,154 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C59B27'><path d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Training Diary — NUST Zimbabwe Athletics Performance Monitoring</title>
-    <meta name="description" content="Duration-Free Trackside Sprint Diary and Coach Command Center for University Athletics. Fast Borg 1-10 load tracking, ACWR injury prevention analytics, and 100% free Google Sheets/Forms integration." />
-    <!-- Google Fonts -->
+    <meta name="description" content="Duration-Free Trackside Sprint Diary and Coach Command Center for University Athletics. Fast Borg 1-10 load tracking, ACWR injury prevention analytics, and 100% athlete-friendly training insights." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script type="module" crossorigin src="/assets/index-DsvSWJ5W.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BIDvasOE.css">
+    <style>
+      :root {
+        --google-bg: #f1f3f4;
+        --google-surface: rgba(255,255,255,0.92);
+        --google-border: rgba(60,64,67,0.18);
+        --google-text: #202124;
+        --google-muted: #5f6368;
+        --google-blue: #1a73e8;
+        --google-blue-dark: #174ea6;
+        --google-shadow: 0 1px 2px rgba(60,64,67,0.16), 0 3px 12px rgba(60,64,67,0.08);
+      }
+
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background: linear-gradient(180deg, #f8f9fa 0%, #edf2ff 100%);
+        color: var(--google-text);
+        font-family: "Google Sans", "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background-image: radial-gradient(circle at top left, rgba(26, 115, 232, 0.14), transparent 32%),
+          linear-gradient(180deg, #f8f9fa 0%, #eef3ff 100%);
+      }
+
+      #root {
+        min-height: 100vh;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+
+      #root > * {
+        background: var(--google-surface);
+        border: 1px solid var(--google-border);
+        border-radius: 22px;
+        box-shadow: var(--google-shadow);
+      }
+
+      button, input, select, textarea {
+        font-family: inherit;
+      }
+
+      input, select, textarea {
+        background: #ffffff;
+        color: var(--google-text);
+        border: 1px solid rgba(60,64,67,0.24);
+        border-radius: 12px;
+        box-shadow: inset 0 1px 2px rgba(60,64,67,0.06);
+      }
+
+      button, [type="button"], [type="submit"], [role="button"] {
+        background: linear-gradient(180deg, var(--google-blue) 0%, var(--google-blue-dark) 100%);
+        color: #fff;
+        border: 0;
+        border-radius: 999px;
+        box-shadow: 0 1px 2px rgba(26,115,232,0.24);
+        transition: filter 0.18s ease, transform 0.12s ease;
+      }
+
+      button:hover, [type="button"]:hover, [type="submit"]:hover, [role="button"]:hover {
+        filter: brightness(1.02);
+      }
+
+      button:active, [type="button"]:active, [type="submit"]:active, [role="button"]:active {
+        transform: translateY(1px);
+      }
+
+      .metric-card, .panel, .card, .stat, .summary, .surface {
+        background: rgba(255,255,255,0.9) !important;
+        border: 1px solid var(--google-border) !important;
+        border-radius: 18px !important;
+        box-shadow: none !important;
+      }
+
+      .text-slate-100,
+      .text-slate-200,
+      .text-slate-300,
+      .text-slate-400,
+      .bg-slate-950,
+      .bg-slate-900,
+      body.bg-slate-950 {
+        color: var(--google-text) !important;
+        background: transparent !important;
+      }
+
+      .text-slate-500,
+      .text-slate-600,
+      .text-slate-700,
+      .text-slate-400 {
+        color: var(--google-muted) !important;
+      }
+
+      .border-slate-800,
+      .border-slate-700,
+      .border-slate-600,
+      .border-slate-500 {
+        border-color: rgba(60,64,67,0.18) !important;
+      }
+    </style>
+    <script>
+      (function () {
+        function removeZeroCostText() {
+          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          const textNodes = [];
+
+          while (walker.nextNode()) {
+            const node = walker.currentNode;
+            if (node && /zero\s*cost/i.test(node.textContent || '')) {
+              textNodes.push(node);
+            }
+          }
+
+          textNodes.forEach(function (node) {
+            const parent = node.parentElement;
+            if (!parent) return;
+
+            const container = parent.closest('div, p, span, li, section, header, footer, article, h1, h2, h3, button');
+            if (container) {
+              container.style.display = 'none';
+            }
+          });
+        }
+
+        const run = function () {
+          removeZeroCostText();
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', run, { once: true });
+        } else {
+          run();
+        }
+
+        const observer = new MutationObserver(run);
+        observer.observe(document.body || document.documentElement, {
+          childList: true,
+          subtree: true,
+          characterData: true
+        });
+      })();
+    </script>
   </head>
   <body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-amber-400 selection:text-slate-900">
     <div id="root"></div>
